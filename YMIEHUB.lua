@@ -2697,7 +2697,7 @@ spawn(function()
                                         until not getgenv().AutoBone or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                     else
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
-                                        bringmob = false
+                                        bringmob = true
                                     end
                                 end
                             end
@@ -2710,7 +2710,7 @@ spawn(function()
     end
 end)
 
-local ToggleRandomBone = Tabs.Main:AddToggle("ToggleRandomBone", {Title = "Enabled Random Bones",Description = "", Default = false })
+local ToggleRandomBone = Tabs.Main:AddToggle("ToggleRandomBone", {Title = "Random Bones",Description = "", Default = false })
 ToggleRandomBone:OnChanged(function(Value)  
 		getgenv().AutoRandomBone = Value
 end)
@@ -2799,8 +2799,9 @@ end)
                 end
             end)
         end
-    end)
- local ToggleBringMob = Tabs..Main:AddToggle("ToggleBringMob", {Title = "Enabled Bring Mobs",Description = "", Default = true })
+    end) 
+local Setting Farming = Tabs.Setting:AddSection("Setting Farmer")
+local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Bring Mobs",Description = "", Default = true })
     ToggleBringMob:OnChanged(function(Value)
         getgenv().BringMob = Value
     end)
@@ -2822,3 +2823,4 @@ end)
             end)
         end
     end)
+
