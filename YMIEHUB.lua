@@ -2729,235 +2729,7 @@ spawn(function()
 	end
 	end
 	end)
-local Mastery = Tabs.Main:AddSection("Mastery Farm")
-    local DropdownMastery = Tabs.Main:AddDropdown("DropdownMastery", {
-        Title = "Farm Mastery ",
-        Description = "",
-        Values = {"Level","Near Farm",},
-        Multi = false,
-        Default = 1,
-    })
-
-    DropdownMastery:SetValue("Level")
-
-    DropdownMastery:OnChanged(function(Value)
-        TypeMastery = Value
-    end)
-
-    local ToggleMasteryFruit = Tabs.Main:AddToggle("ToggleMasteryFruit", {
-        Title = "Farm Mastery Fruits",
-        Description = "", 
-        Default = false })
-    ToggleMasteryFruit:OnChanged(function(Value)
-        AutoFarmMasDevilFruit = Value
-    end)
-    Options.ToggleMasteryFruit:SetValue(false)
-
- 
-
-    local SliderHealt = Tabs.Main:AddSlider("SliderHealt", {
-        Title = "Health Mob",
-        Description = "",
-        Default = 25,
-        Min = 0,
-        Max = 100,
-        Rounding = 1,
-        Callback = function(Value)
-            KillPercent = Value
-        end
-    })
-
-    SliderHealt:OnChanged(function(Value)
-        KillPercent = Value
-    end)
-
-    SliderHealt:SetValue(25)
-    
-    
-spawn(function()
-while task.wait(1) do
-if getgenv().UseSkill then
-pcall(function()
-  if getgenv().UseSkill then
-  for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-  if v.Name == MonFarm and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health <= v.Humanoid.MaxHealth * KillPercent / 100 then
-  repeat game:GetService("RunService").Heartbeat:wait()
-  EquipTool(game.Players.LocalPlayer.Data.DevilFruit.Value)
-  Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-  PositionSkillMasteryDevilFruit = v.HumanoidRootPart.Position
-  if game:GetService("Players").LocalPlayer.Character:FindFirstChild(game.Players.LocalPlayer.Data.DevilFruit.Value) then
-  game:GetService("Players").LocalPlayer.Character:FindFirstChild(game.Players.LocalPlayer.Data.DevilFruit.Value).MousePos.Value = PositionSkillMasteryDevilFruit
-  local DevilFruitMastery = game:GetService("Players").LocalPlayer.Character:FindFirstChild(game.Players.LocalPlayer.Data.DevilFruit.Value).Level.Value
-  if getgenv().Z and DevilFruitMastery >= 1 then
-  game:service('VirtualInputManager'):SendKeyEvent(true, "Z", false, game)
-  wait(0.1)
-  game:service('VirtualInputManager'):SendKeyEvent(false, "Z", false, game)
-  end
-  if getgenv().X and DevilFruitMastery >= 2 then
-  game:service('VirtualInputManager'):SendKeyEvent(true, "X", false, game)
-  wait(0.2)
-  game:service('VirtualInputManager'):SendKeyEvent(false, "X", false, game)
-  end
-  if getgenv().C and DevilFruitMastery >= 3 then
-  game:service('VirtualInputManager'):SendKeyEvent(true, "C", false, game)
-  wait(0.3)
-  game:service('VirtualInputManager'):SendKeyEvent(false, "C", false, game)
-  end
-  if getgenv().V and DevilFruitMastery >= 4 then
-  game:service('VirtualInputManager'):SendKeyEvent(true, "V", false, game)
-  wait(0.4)
-  game:service('VirtualInputManager'):SendKeyEvent(false, "V", false, game)
-  end
-  if getgenv().F and DevilFruitMastery >= 5 then
-  game:GetService("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
-  wait(0.5)
-  game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
-  end
-  end
-  until not AutoFarmMasDevilFruit or not getgenv().UseSkill or v.Humanoid.Health == 0
-  end
-  end
-  end
-  end)
-end
-end
-end)
-spawn(function()
-    while task.wait(.1) do
-    if AutoFarmMasDevilFruit and TypeMastery == 'Level' then
-    pcall(function()
-      CheckLevel(SelectMonster)
-      if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
-      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
-      if BypassTP then
-        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQ.Position).Magnitude > 2500 then
-        to(CFrameQ)
-        wait(0.2)
-        elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQ.Position).Magnitude < 2500 then
-        Tween(CFrameQ)
-        end
-        else
-          Tween(CFrameQ)
-        end
-      if (CFrameQ.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
-      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuest,QuestLv)
-      end
-      elseif string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
-      for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-      if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-      if v.Name == Ms then
-        repeat wait(getgenv().Fast_Delay)
-      if v.Humanoid.Health <= v.Humanoid.MaxHealth * KillPercent / 100 then
-      getgenv().UseSkill = true
-      else
-    getgenv().UseSkill = false
-	   AutoHaki()
-       bringmob = true
-      EquipTool(SelectWeapon)
-      Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-      v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-      v.HumanoidRootPart.Transparency = 1
-      v.Humanoid.JumpPower = 0
-      v.Humanoid.WalkSpeed = 0
-      v.HumanoidRootPart.CanCollide = false
-      FarmPos = v.HumanoidRootPart.CFrame
-      MonFarm = v.Name
-      
-      NormalAttack()
-      end
-      until not AutoFarmMasDevilFruit or not v.Parent or v.Humanoid.Health == 0 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name) or not TypeMastery == 'Level'
-      bringmob = false
-      getgenv().UseSkill = false
-      
-      end
-      end
-      end
-      end
-      end)
-      local ToggleCastleRaid = Tabs.Main:AddToggle("ToggleCastleRaid", {
-        Title = "Auto Castle Raid",
-        Description = "", 
-        Default = false })
-    ToggleCastleRaid:OnChanged(function(Value)
-        getgenv().CastleRaid = Value
-    end)
-    Options.ToggleCastleRaid:SetValue(false)
-    spawn(function()
-        while wait() do
-            if getgenv().CastleRaid then
-                pcall(function()
-                    local CFrameCastleRaid = CFrame.new(-5496.17432, 313.768921, -2841.53027, 0.924894512, 7.37058015e-09, 0.380223751, 3.5881019e-08, 1, -1.06665446e-07, -0.380223751, 1.12297109e-07, 0.924894512)
-                    if (CFrame.new(-5539.3115234375, 313.800537109375, -2972.372314453125).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 500 then
-                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if getgenv().CastleRaid and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-                                if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 2000 then
-                                    repeat wait(getgenv().Fast_Delay)
-                                        AttackNoCoolDown()
-                                        AutoHaki()
-                                        EquipTool(SelectWeapon)
-                                        v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-                                    until v.Humanoid.Health <= 0 or not v.Parent or not getgenv().CastleRaid
-                                end
-                            end
-                        end
-                    else
-                        toTarget(CFrameCastleRaid)
-                     
-                      
-                    end
-                end)
-            end
-        end
-        end)
-        local ToggleMobAura = Tabs.Main:AddToggle("ToggleMobAura", {
-        Title = "Farm Near",
-        Description = "",
-        Default = false })
-    ToggleMobAura:OnChanged(function(Value)
-        getgenv().AutoNear = Value
-        if Value == false then
-            wait()
-            Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-            wait()
-        end
-    end)
-    Options.ToggleMobAura:SetValue(false)
-    spawn(function()
-        while wait(.1) do
-        if getgenv().AutoNear then
-        pcall(function()
-          for i,v in pairs (game.Workspace.Enemies:GetChildren()) do
-          if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-          if v.Name then
-          if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChild("HumanoidRootPart").Position).Magnitude <= 5000 then
-            repeat wait(getgenv().Fast_Delay)
-                AttackNoCoolDown()
-                bringmob = true
-          AutoHaki()
-          EquipTool(SelectWeapon)
-          Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-          v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-          v.HumanoidRootPart.Transparency = 1
-          v.Humanoid.JumpPower = 0
-          v.Humanoid.WalkSpeed = 0
-          v.HumanoidRootPart.CanCollide = false
-          FarmPos = v.HumanoidRootPart.CFrame
-          MonFarm = v.Name
-          --Click
-          until not getgenv().AutoNear or not v.Parent or v.Humanoid.Health <= 0 or not game.Workspace.Enemies:FindFirstChild(v.Name)
-          bringmob = false
-        end
-          end
-          end
-          end
-          end)
-        end
-        end
-      end)
-local Setting Farmer = Tabs.Setting:AddSection("Setting Farmer")
-local listfastattack = {'Normal Attack','Mediaum Attack','Super Fast Attack'}
+       local listfastattack = {'Normal Attack','Fast Attack','Super Fast Attack'}
 
     local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
         Title = "Select Fast Attack",
@@ -2969,9 +2741,9 @@ local listfastattack = {'Normal Attack','Mediaum Attack','Super Fast Attack'}
     DropdownDelayAttack:SetValue("Fast Attack")
     DropdownDelayAttack:OnChanged(function(Value)
     getgenv().FastAttackFaiFao_Mode = Value
-	if getgenv().FastAttackFaiFao_Mode == "Normal Attack" then
+	if getgenv().FastAttackYMIE_Mode == "Fast Attack" then
 		getgenv().Fast_Delay = 0.1
-	elseif getgenv().FastAttackFaiFao_Mode == "Mediaum Attack" then
+	elseif getgenv().FastAttackYMIE_Mode == "Normal Attack" then
 		getgenv().Fast_Delay = 0.15
 	elseif getgenv().FastAttackFaiFao_Mode == "Super Fast Attack" then
 		getgenv().Fast_Delay = 0
@@ -2981,7 +2753,7 @@ end)
     local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
         Title = "Select Weapon",
         Description = "",
-        Values = {'Melee','Sword','Fruits'},
+        Values = {'Melee','Sword','Blox Fruit'},
         Multi = false,
         Default = 1,
     })
@@ -3008,9 +2780,9 @@ end)
                             end
                         end
                     end
-                elseif ChooseWeapon == "Fruits" then
+                elseif ChooseWeapon == "Blox Fruit" then
                     for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                        if v.ToolTip == "Fruits" then
+                        if v.ToolTip == "Blox Fruit" then
                             if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
                                 SelectWeapon = v.Name
                             end
@@ -3027,3 +2799,5 @@ end)
                 end
             end)
         end
+    end)
+ 
