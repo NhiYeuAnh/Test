@@ -2800,7 +2800,7 @@ end)
             end)
         end
     end)
- local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Enabled Bring Mobs",Description = "Gom Quái", Default = true })
+ local ToggleBringMob = Tabs..Main:AddToggle("ToggleBringMob", {Title = "Enabled Bring Mobs",Description = "", Default = true })
     ToggleBringMob:OnChanged(function(Value)
         getgenv().BringMob = Value
     end)
