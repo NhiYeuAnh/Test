@@ -2800,4 +2800,25 @@ end)
             end)
         end
     end)
- 
+ local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Enabled Bring Mobs",Description = "Gom Quái", Default = true })
+    ToggleBringMob:OnChanged(function(Value)
+        getgenv().BringMob = Value
+    end)
+    Options.ToggleBringMob:SetValue(true)
+    spawn(function()
+        while task.wait() do
+            pcall(function()
+                if getgenv().BringMob and bringmob then
+                    for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+                        if v.Name == MonFarm and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 315 then
+                            v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
+                            v.HumanoidRootPart.CFrame = FarmPos
+                            sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
+                        end
+                    end
+                end
+            end)
+        end
+    end)
