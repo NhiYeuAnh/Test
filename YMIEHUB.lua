@@ -2914,7 +2914,7 @@ spawn(function()
         end
     end)
 end)
-Tabs.Setting:AddButton({
+Tabs.Setting Farmer:AddButton({
         Title = "Booster Fps",
         Description = "",
         Callback = function()
@@ -2962,7 +2962,7 @@ Tabs.Setting:AddButton({
                 e.Enabled = false
             end
         end
-        Tabs.Setting:AddButton({
+        Tabs.Setting Farmer:AddButton({
 	Title = "Remove Fog",
 	Description = "",
 	Callback = function()
