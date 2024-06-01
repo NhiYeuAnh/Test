@@ -2640,56 +2640,65 @@ local ToggleLevel = Tabs.Main:AddToggle("ToggleLevel", {
         end
         end
         end)
-        local ToggleCake = Tabs.Main:AddToggle("ToggleCake", {Title = "Farm Cake Prince", Default = false })
-Toggle:OnChanged(function(Value)
-        _G.AutoDoughtBoss = Value
-		StopTween(_G.AutoDoughtBoss)
-    end)
-
-
-    spawn(function()
-		while wait() do
-			if _G.AutoDoughtBoss then
-				pcall(function()
+        local ToggleCake = Tabs.Main:AddToggle("ToggleCake", {
+    Title = "Farm Cake Prince",
+    Description = "", 
+    Default = false })
+ToggleCake:OnChanged(function(Value)
+ _G.CakePrince = Value
+ if Value == false then
+    wait()
+    Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+    wait()
+end
+end)
+                    local CakeCFrame = CFrame.new(-2142.66821,71.2588654,-12327.4619,0.996939838,-4.33107843e-08,0.078172572,4.20252917e-08,1,1.80894251e-08,-0.078172572,-1.47488439e-08, 0.996939838)
+                    toTarget(CakeCFrame)
 					if game.ReplicatedStorage:FindFirstChild("Cake Prince") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then   
 						if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
 							for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do 
 								if v.Name == "Cake Prince" then
-									repeat wait()
+                                    repeat wait(_G.Fast_Delay)
+                                        AttackNoCoolDown()
 										AutoHaki()
-										EquipWeapon(_G.Select_Weapon)
+										EquipTool(SelectWeapon)
 										v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 										v.HumanoidRootPart.CanCollide = false
-										topos(v.HumanoidRootPart.CFrame * CFrame.new(PosX,PosY,PosZ))
-									until _G.AutoDoughtBoss == false or not v.Parent or v.Humanoid.Health <= 0
-								end    
+										Tween(v.HumanoidRootPart.CFrame * Pos)
+										--Click
+									until _G.CakePrince == false or not v.Parent or v.Humanoid.Health <= 0
+                                    bringmob = false
+                                end    
 							end    
 						else
-							topos(CFrame.new(-2009.2802734375, 4532.97216796875, -14937.3076171875)) 
+							Tween(CFrame.new(-2009.2802734375, 4532.97216796875, -14937.3076171875)) 
 						end
 					else
-						if game.Workspace.Enemies:FindFirstChild("Baking Staff") or game.Workspace.Enemies:FindFirstChild("Head Baker") or game.Workspace.Enemies:FindFirstChild("Cake Guard") or game.Workspace.Enemies:FindFirstChild("Cookie Crafter")  then
-							for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do  
-								if (v.Name == "Baking Staff" or v.Name == "Head Baker" or v.Name == "Cake Guard" or v.Name == "Cookie Crafter") and v.Humanoid.Health > 0 then
-									repeat wait()
+                        if game.Workspace.Enemies:FindFirstChild("Baking Staff") or game.Workspace.Enemies:FindFirstChild("Head Baker") or game.Workspace.Enemies:FindFirstChild("Cake Guard") or game.Workspace.Enemies:FindFirstChild("Cookie Crafter")  then
+                            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do  
+                                if (v.Name == "Baking Staff" or v.Name == "Head Baker" or v.Name == "Cake Guard" or v.Name == "Cookie Crafter") and v.Humanoid.Health > 0 then
+                                    repeat wait(_G.Fast_Delay)
+                                        AttackNoCoolDown()
 										AutoHaki()
-										EquipWeapon(_G.Select_Weapon)
-										MonFarm = v.Name                
-                                        PosMon = v.HumanoidRootPart.CFrame
+                                        bringmob = true
+										EquipTool(SelectWeapon)
 										v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)  
-										POSCAKE = v.HumanoidRootPart.CFrame
-										topos(v.HumanoidRootPart.CFrame * CFrame.new(PosX,PosY,PosZ))
-									until _G.AutoDoughtBoss == false or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") or not v.Parent or v.Humanoid.Health <= 0
-								end
+										FarmPos = v.HumanoidRootPart.CFrame
+                                        MonFarm = v.Name
+										Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
+									until _G.CakePrince == false or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") or not v.Parent or v.Humanoid.Health <= 0
+                                    bringmob = false
+                                end
 							end
 						else
-							topos(CFrame.new(-1820.0634765625, 210.74781799316406, -12297.49609375))
+							Tween(CakeCFrame)
 						end
 					end
 				end)
 			end
 		end
-	end)
+    end)
+
     local ToggleBone = Tabs.Main:AddToggle("ToggleBone", {
     Title = "Farm Bones",
     Description = "", 
