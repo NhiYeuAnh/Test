@@ -2789,7 +2789,7 @@ spawn(function()
 	end
 	end
 	end)
-       local listfastattack = {'Normal Attack','Fast Attack','Super Fast Attack'}
+       local listfastattack = {'Normal Attack','Mediaum Attack',' Mega Attack'}
 
     local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
         Title = "Select Fast Attack",
@@ -2801,11 +2801,11 @@ spawn(function()
     DropdownDelayAttack:SetValue("Fast Attack")
     DropdownDelayAttack:OnChanged(function(Value)
     getgenv().FastAttackFaiFao_Mode = Value
-	if getgenv().FastAttackYMIE_Mode == "Fast Attack" then
+	if getgenv().FastAttackYMIE_Mode == "Normal Attack" then
 		getgenv().Fast_Delay = 0.1
-	elseif getgenv().FastAttackYMIE_Mode == "Normal Attack" then
+	elseif getgenv().FastAttackYMIE_Mode == "Mediaum Attack" then
 		getgenv().Fast_Delay = 0.15
-	elseif getgenv().FastAttackFaiFao_Mode == "Super Fast Attack" then
+	elseif getgenv().FastAttackYMIE_Mode == "Mega Attack" then
 		getgenv().Fast_Delay = 0
 	end
 end)
@@ -2813,7 +2813,7 @@ end)
     local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
         Title = "Select Weapon",
         Description = "",
-        Values = {'Melee','Sword','Blox Fruit'},
+        Values = {'Melee','Sword','Fruits'},
         Multi = false,
         Default = 1,
     })
@@ -2914,3 +2914,135 @@ spawn(function()
         end
     end)
 end) 
+local ToggleBypassTP = Tabs.Setting:AddToggle("ToggleBypassTP", {Title = "Bypass Tp",Description = "Di Chuyển Dạng Reset", Default = false })
+    ToggleBypassTP:OnChanged(function(Value)
+        BypassTP = Value
+    end)
+    Options.ToggleBypassTP:SetValue(false)
+
+
+local ToggleRemove = Tabs.Setting:AddToggle("ToggleRemove", {Title = " Remove Damage",Description = "", Default = true })
+ToggleRemove:OnChanged(function(Value)
+    getgenv().RemoveDameText = Value
+    end)
+    Options.ToggleRemove:SetValue(true)
+
+    spawn(function()
+        while wait() do
+            if getgenv().RemoveDameText then
+                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+            else
+                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
+            end
+        end
+        end)
+local ToggleWhite = Tabs.Setting:AddToggle("ToggleWhite", {Title = "White Screen",Description = "", Default = false })
+    ToggleWhite:OnChanged(function(Value)
+       getgenv().WhiteScreen = Value
+       if getgenv().WhiteScreen == true then
+        game:GetService("RunService"):Set3dRenderingEnabled(false)
+    elseif getgenv().WhiteScreen == false then
+        game:GetService("RunService"):Set3dRenderingEnabled(true)
+            end
+        end)
+        Options.ToggleWhite:SetValue(false)
+      
+        local SKill = Tabs.Setting:AddSection("Skill Mastery")
+local ToggleZ = Tabs.Setting:AddToggle("ToggleZ", {Title = "Skill Z",Description = "", Default = true })
+ToggleZ:OnChanged(function(Value)
+    getgenv().Z = Value
+end)
+Options.ToggleZ:SetValue(true)
+
+local ToggleX = Tabs.Setting:AddToggle("ToggleX", {Title = "Skill X", Description = "",Default = true })
+ToggleX:OnChanged(function(Value)
+    getgenv().X = Value
+end)
+Options.ToggleX:SetValue(true)
+
+
+local ToggleC = Tabs.Setting:AddToggle("ToggleC", {Title = "Skill C",Description = "", Default = false })
+ToggleC:OnChanged(function(Value)
+    getgenv().C = Value
+end)
+Options.ToggleC:SetValue(false)
+
+
+local ToggleV = Tabs.Setting:AddToggle("ToggleV", {Title = "Skill V",Description = "", Default = false })
+ToggleV:OnChanged(function(Value)
+    getgenv().V = Value
+end)
+Options.ToggleV:SetValue(false)
+
+
+local ToggleF = Tabs.Setting:AddToggle("ToggleF", {Title = "Skill F",Description = "", Default = false })
+ToggleF:OnChanged(function(Value)
+   getgenv().F = Value
+    end)
+Options.ToggleF:SetValue(false)
+
+
+local Pos = Tabs.Setting:AddSection("Distance Farm")
+
+local SliderPosX = Tabs.Setting:AddSlider("SliderPosX", {
+    Title = "Pos X",
+    Description = "",
+    Default = 0,
+    Min = -60,
+    Max = 60,
+    Rounding = 1,
+    Callback = function(Value)
+      posX = Value
+    end
+})
+SliderPosX:OnChanged(function(Value)
+  posX = Value
+end)
+SliderPosX:SetValue(0)
+
+local SliderPosY = Tabs.Setting:AddSlider("SliderPosY", {
+    Title = "Pos Y",
+    Description = "",
+    Default = 15,
+    Min = -60,
+    Max = 60,
+    Rounding = 1,
+    Callback = function(Value)
+      posY = Value
+    end
+})
+SliderPosY:OnChanged(function(Value)
+  posY = Value
+end)
+SliderPosY:SetValue(15)
+
+local SliderPosZ = Tabs.Setting:AddSlider("SliderPosZ", {
+    Title = "Pos Z",
+    Description = "",
+    Default = 15,
+    Min = -60,
+    Max = 60,
+    Rounding = 1,
+    Callback = function(Value)
+      posZ = Value
+    end
+})
+SliderPosZ:OnChanged(function(Value)
+     posZ = Value
+end)
+SliderPosZ:SetValue(15)
+local ToggleRemoveNotify = Tabs.Setting:AddToggle("ToggleRemoveNotify", {Title = "Remove Notify",Description = "", Default = false })
+ToggleRemoveNotify:OnChanged(function(Value)
+    getgenv().RemoveNotify = Value
+    end)
+    Options.ToggleRemoveNotify:SetValue(false)
+
+    spawn(function()
+        while wait() do
+            if getgenv().RemoveNotify then
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
+            else
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
+            end
+        end
+    end)
