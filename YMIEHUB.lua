@@ -2914,7 +2914,7 @@ spawn(function()
         end
     end)
 end)
-Tabs.Main:AddButton({
+Tabs.Setting:AddButton({
         Title = "Booster Fps",
         Description = "",
         Callback = function()
@@ -2978,18 +2978,3 @@ function NoFog()
         end
     end
 end
-local ToggleRemoveNotify = Tabs.Setting:AddToggle("ToggleRemoveNotify", {Title = "  Remove Notify",Description = "", Default = false })
-ToggleRemoveNotify:OnChanged(function(Value)
-    getgenv().RemoveNotify = Value
-    end)
-    Options.ToggleRemoveNotify:SetValue(false)
-
-    spawn(function()
-        while wait() do
-            if getgenv().RemoveNotify then
-                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
-            else
-                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
-            end
-        end
-    end)
