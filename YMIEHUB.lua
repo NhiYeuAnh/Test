@@ -114,6 +114,26 @@ function AttackNoCoolDown()
         end
     end
 end
+--------------------------------------------------------------------------------------------------------------------------------------------
+--// Tween
+function Tween2(P1)
+    local Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if Distance >= 1 then
+    Speed = 300
+    end
+    game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear), {
+      CFrame = P1
+    }):Play()
+    if getgenv().CancelTween2 then
+    game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear), {
+      CFrame = P1
+    }):Cancel()
+    end
+    getgenv().Clip2 = true
+    wait(Distance/Speed)
+    getgenv().Clip2 = false
+    end
+   
 -------------// BLOX FRUIT
 --// Sea World
 First_Sea = false
