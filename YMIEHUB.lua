@@ -2704,60 +2704,60 @@ ToggleBone:OnChanged(function(Value)
 end)
 Options.ToggleBone:SetValue(false)
 local boneframe = CFrame.new(-9508.5673828125, 142.1398468017578, 5737.3603515625)
-        if AutoFarmBone then
+            if _G.Auto_Bone and World3 then
             pcall(function()
-                if BypassTP then
-                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude > 2000 then
-                        BTP(boneframe)
-                        wait(3)
-                    elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude < 2000 then
-                        Tween(boneframe)
+                    if BypassTP then
+                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude > 2000 then
+                            BTP(boneframe)
+                            wait(.1)
+                            for i = 1, 8 do
+                                game.Players.localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(boneframe)
+			                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")	
+                                wait(.1)		
+                            end
+                        elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude < 2000 then
+                            TP1(boneframe)
+                        end
+                    else
+                        TP1(boneframe)
                     end
-                else
-                    Tween(boneframe)
-                end
-
-                for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
-                    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                        if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
-                            repeat
-                                game:GetService("RunService").Heartbeat:wait()
-                                EquipTool(_G.SelectWeapon)
-                                Fastattack = true
-                                Tween(v.HumanoidRootPart.CFrame * Farm_Mode)
-                                v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                                v.HumanoidRootPart.Transparency = 1
-                                v.Humanoid.JumpPower = 0
-                                v.Humanoid.WalkSpeed = 0
-                                v.HumanoidRootPart.CanCollide = false
-                                v.Humanoid:ChangeState(11)
-                                v.Humanoid:ChangeState(14)
-                                FarmPos = v.HumanoidRootPart.CFrame
-                                MonFarm = v.Name
-                                Click()
-                                if v.Humanoid.Health <= 0 and v.Humanoid:FindFirstChild("Animator") then
-                                    v.Humanoid.Animator:Destroy()
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Reborn Skeleton") or game:GetService("Workspace").Enemies:FindFirstChild("Living Zombie") or game:GetService("Workspace").Enemies:FindFirstChild("Demonic Soul") or game:GetService("Workspace").Enemies:FindFirstChild("Posessed Mummy") then
+                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
+                                if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                    repeat task.wait()
+                                        AutoHaki()
+                                        EquipWeapon(_G.SelectWeapon)
+                                        v.HumanoidRootPart.CanCollide = false
+                                        v.Humanoid.WalkSpeed = 0
+                                        v.Head.CanCollide = false 
+                                    MonFarm = v.Name                
+                                        PosMon = v.HumanoidRootPart.CFrame
+                                        topos(v.HumanoidRootPart.CFrame * CFrame.new(PosX,PosY,PosZ))
+                                        sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
+                                    until not _G.Auto_Bone or not v.Parent or v.Humanoid.Health <= 0
                                 end
-                            until not AutoFarmBone or not v.Parent or v.Humanoid.Health <= 0
-                            Fastattack = false
+                            end
+                        end
+                    else
+                        StartMagnetBoneMon = false
+    					topos(CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375))
+                        for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do 
+                            if v.Name == "Reborn Skeleton" then
+                                topos(v.HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                            elseif v.Name == "Living Zombie" then
+                                topos(v.HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                            elseif v.Name == "Demonic Soul" then
+                                topos(v.HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                            elseif v.Name == "Posessed Mummy" then
+                                topos(v.HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                            end
                         end
                     end
-                end
-                for i, v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
-                    if v.Name == "Reborn Skeleton" then
-                        Tween(v.HumanoidRootPart.CFrame * Farm_Mode)
-                    elseif v.Name == "Living Zombie" then
-                        Tween(v.HumanoidRootPart.CFrame * Farm_Mode)
-                    elseif v.Name == "Demonic Soul" then
-                        Tween(v.HumanoidRootPart.CFrame * Farm_Mode)
-                    elseif v.Name == "Posessed Mummy" then
-                        Tween(v.HumanoidRootPart.CFrame * Farm_Mode)
-                    end
-                end
-            end)
+                    end)
+            end
         end
-    end
-end)
+    end)    
 
 local ToggleRandomBone = Tabs.Main:AddToggle("ToggleRandomBone", {Title = "Random Bones",Description = "", Default = false })
 ToggleRandomBone:OnChanged(function(Value)  
