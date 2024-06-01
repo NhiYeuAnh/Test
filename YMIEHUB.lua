@@ -2640,25 +2640,30 @@ local ToggleLevel = Tabs.Main:AddToggle("ToggleLevel", {
         end
         end
         end)
-        local ToggleCake = Tabs.Main:AddToggle("ToggleCake", {
+local ToggleCake = Tabs.Main:AddToggle("ToggleCake", {
     Title = "Farm Cake Prince",
     Description = "", 
     Default = false })
 ToggleCake:OnChanged(function(Value)
- _G.CakePrince = Value
+ getgenv().CakePrince = Value
  if Value == false then
     wait()
     Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
     wait()
 end
 end)
+Options.ToggleCake:SetValue(false)
+spawn(function()
+		while wait() do
+			if getgenv().CakePrince then
+                pcall(function()
                     local CakeCFrame = CFrame.new(-2142.66821,71.2588654,-12327.4619,0.996939838,-4.33107843e-08,0.078172572,4.20252917e-08,1,1.80894251e-08,-0.078172572,-1.47488439e-08, 0.996939838)
                     toTarget(CakeCFrame)
 					if game.ReplicatedStorage:FindFirstChild("Cake Prince") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then   
 						if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
 							for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do 
 								if v.Name == "Cake Prince" then
-                                    repeat wait(_G.Fast_Delay)
+                                    repeat wait(getgenv().Fast_Delay)
                                         AttackNoCoolDown()
 										AutoHaki()
 										EquipTool(SelectWeapon)
@@ -2666,7 +2671,7 @@ end)
 										v.HumanoidRootPart.CanCollide = false
 										Tween(v.HumanoidRootPart.CFrame * Pos)
 										--Click
-									until _G.CakePrince == false or not v.Parent or v.Humanoid.Health <= 0
+									until getgenv().CakePrince == false or not v.Parent or v.Humanoid.Health <= 0
                                     bringmob = false
                                 end    
 							end    
@@ -2677,7 +2682,7 @@ end)
                         if game.Workspace.Enemies:FindFirstChild("Baking Staff") or game.Workspace.Enemies:FindFirstChild("Head Baker") or game.Workspace.Enemies:FindFirstChild("Cake Guard") or game.Workspace.Enemies:FindFirstChild("Cookie Crafter")  then
                             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do  
                                 if (v.Name == "Baking Staff" or v.Name == "Head Baker" or v.Name == "Cake Guard" or v.Name == "Cookie Crafter") and v.Humanoid.Health > 0 then
-                                    repeat wait(_G.Fast_Delay)
+                                    repeat wait(getgenv().Fast_Delay)
                                         AttackNoCoolDown()
 										AutoHaki()
                                         bringmob = true
@@ -2686,7 +2691,7 @@ end)
 										FarmPos = v.HumanoidRootPart.CFrame
                                         MonFarm = v.Name
 										Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
-									until _G.CakePrince == false or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") or not v.Parent or v.Humanoid.Health <= 0
+									until getgenv().CakePrince == false or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") or not v.Parent or v.Humanoid.Health <= 0
                                     bringmob = false
                                 end
 							end
@@ -2698,6 +2703,33 @@ end)
 			end
 		end
     end)
+
+
+    local ToggleSpawnCake = Tabs.Main:AddToggle("ToggleSpawnCake", {
+        Title = "Spawn Cake Prince",
+        Description = "", 
+        Default = false })
+    ToggleSpawnCake:OnChanged(function(Value)
+      getgenv().SpawnCakePrince = Value
+    end)
+    Options.ToggleSpawnCake:SetValue(true)
+end
+
+spawn(function()
+  while wait() do
+    if getgenv().SpawnCakePrince then
+      local args = {
+        [1] = "CakePrinceSpawner",
+        [2] = true
+      }
+      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))                    
+      local args = {
+        [1] = "CakePrinceSpawner"
+      }
+      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+    end
+  end
+end)
 
     local ToggleBone = Tabs.Main:AddToggle("ToggleBone", {
     Title = "Farm Bones",
