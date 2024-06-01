@@ -113,56 +113,7 @@ function AttackNoCoolDown()
             end
         end
     end
-end
---------------------------------------------------------------------------------------------------------------------------------------------
---// Tween
-function Tween2(P1)
-    local Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-    if Distance >= 1 then
-    Speed = 300
-    end
-    game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear), {
-      CFrame = P1
-    }):Play()
-    if getgenv().CancelTween2 then
-    game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear), {
-      CFrame = P1
-    }):Cancel()
-    end
-    getgenv().Clip2 = true
-    wait(Distance/Speed)
-    getgenv().Clip2 = false
-    end
-   --------------------------------------------------------------------------------------------------------------------------------------------
-   --//Stop Tween
-   function StopTween(target)
-        if not target then
-            _G.StopTween = true
-            wait()
-            topos(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-            wait()
-            if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
-                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
-            end
-            _G.StopTween = false
-            _G.Clip = false
-        end
-    end
-    
-    spawn(function()
-        pcall(function()
-            while wait() do
-                for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
-                    if v:IsA("Tool") then
-                        if v:FindFirstChild("RemoteFunctionShoot") then 
-                            SelectWeaponGun = v.Name
-                        end
-                    end
-                end
-            end
-        end)
-    end)
-    
+end    
 -------------// BLOX FRUIT
 --// Sea World
 First_Sea = false
@@ -2963,3 +2914,82 @@ spawn(function()
         end
     end)
 end)
+Tabs.Main:AddButton({
+        Title = "Booster Fps",
+        Description = "",
+        Callback = function()
+            FPSBooster()
+        end
+    })
+
+    function FPSBooster()
+        local decalsyeeted = true
+        local g = game
+        local w = g.Workspace
+        local l = g.Lighting
+        local t = w.Terrain
+        sethiddenproperty(l,"Technology",2)
+        sethiddenproperty(t,"Decoration",false)
+        t.WaterWaveSize = 0
+        t.WaterWaveSpeed = 0
+        t.WaterReflectance = 0
+        t.WaterTransparency = 0
+        l.GlobalShadows = false
+        l.FogEnd = 9e9
+        l.Brightness = 0
+        settings().Rendering.QualityLevel = "Level01"
+        for i, v in pairs(g:GetDescendants()) do
+            if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+            elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+                v.Transparency = 1
+            elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                v.Lifetime = NumberRange.new(0)
+            elseif v:IsA("Explosion") then
+                v.BlastPressure = 1
+                v.BlastRadius = 1
+            elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+                v.Enabled = false
+            elseif v:IsA("MeshPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+                v.TextureID = 10385902758728957
+            end
+        end
+        for i, e in pairs(l:GetChildren()) do
+            if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+                e.Enabled = false
+            end
+        end
+        Tabs.Setting:AddButton({
+	Title = "Remove Fog",
+	Description = "",
+	Callback = function()
+        NoFog()
+    end
+})
+function NoFog()
+    local c = game.Lighting
+    c.FogEnd = 100000
+    for r, v in pairs(c:GetDescendants()) do
+        if v:IsA("Atmosphere") then
+            v:Destroy()
+        end
+    end
+end
+local ToggleRemoveNotify = Tabs.Setting:AddToggle("ToggleRemoveNotify", {Title = "  Remove Notify",Description = "", Default = false })
+ToggleRemoveNotify:OnChanged(function(Value)
+    getgenv().RemoveNotify = Value
+    end)
+    Options.ToggleRemoveNotify:SetValue(false)
+
+    spawn(function()
+        while wait() do
+            if getgenv().RemoveNotify then
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
+            else
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
+            end
+        end
+    end)
