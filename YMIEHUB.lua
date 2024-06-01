@@ -133,7 +133,36 @@ function Tween2(P1)
     wait(Distance/Speed)
     getgenv().Clip2 = false
     end
-   
+   --------------------------------------------------------------------------------------------------------------------------------------------
+   --//Stop Tween
+   function StopTween(target)
+        if not target then
+            _G.StopTween = true
+            wait()
+            topos(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+            wait()
+            if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
+                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
+            end
+            _G.StopTween = false
+            _G.Clip = false
+        end
+    end
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
+                    if v:IsA("Tool") then
+                        if v:FindFirstChild("RemoteFunctionShoot") then 
+                            SelectWeaponGun = v.Name
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+    
 -------------// BLOX FRUIT
 --// Sea World
 First_Sea = false
