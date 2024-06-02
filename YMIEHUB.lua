@@ -2760,37 +2760,9 @@ spawn(function()
   end
 end)
 end
-local listfastattack = {'Normal','Slow','Super','Low','speed','Extra'}
-
-    local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
-        Title = "Select Delay Attack",
-        Description = "",
-        Values = listfastattack,
-        Multi = false,
-        Default = 1,
-    })
-    DropdownDelayAttack:SetValue("Fast Attack")
-    DropdownDelayAttack:OnChanged(function(Value)
-    _G.FastAttactYMIE_Mode = Value
-	if _G.FastAttackYMIE_Mode == "Slow" then
-		_G.Fast_Delay = 0.10
-	elseif _G.FastAttackYMIE_Mode == "Normal" then
-		_G.Fast_Delay = 0.07
-	elseif _G.FastAttackYMIE_Mode == "Mediaum" then
-		_G.Fast_Delay = 0.01
-	elseif _G.FastAttackYMIE_Mode == "Low" then
-		_G.Fast_Delay = 0.018	
-	elseif _G.FastAttackYMIE_Mode == "Fast Speed" then
-		_G.Fast_Delay = 0.009	
-	elseif _G.FastAttackYMIE_Mode == "Extra" then
-		_G.Fast_Delay = 0.001
-   elseif _G.FastAttackYMIE_Mode == "Super"
-        _G.Fast_Delay = 0
-	end
-end)
 
     local DropdownSelectWeapon = Tabs.Main:AddDropdown("DropdownSelectWeapon", {
-        Title = "Weapon",
+        Title = "Select Weapon",
         Description = "",
         Values = {'Melee','Sword','Blox Fruit'},
         Multi = false,
@@ -2839,3 +2811,23 @@ end)
             end)
         end
     end)
+local listfastattack = {'Normal Attack','Mediaum Attack','Super  Attack'}
+
+    local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
+        Title = "Select Deley Attack",
+        Description = "",
+        Values = listfastattack,
+        Multi = false,
+        Default = 1,
+    })
+    DropdownDelayAttack:SetValue("Fast Attack")
+    DropdownDelayAttack:OnChanged(function(Value)
+    getgenv().FastAttackFaiFao_Mode = Value
+	if getgenv().FastAttackFaiFao_Mode == "Normal Attack" then
+		getgenv().Fast_Delay = 0.1
+	elseif getgenv().FastAttackFaiFao_Mode == "Mediaum Attack" then
+		getgenv().Fast_Delay = 0.15
+	elseif getgenv().FastAttackFaiFao_Mode == "Super  Attack" then
+		getgenv().Fast_Delay = 0
+	end
+end)
