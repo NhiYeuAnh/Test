@@ -2734,30 +2734,3 @@ spawn(function()
     end)
 
 
-    local ToggleSpawnCake = Tabs.Main:AddToggle("ToggleSpawnCake", {
-        Title = "Spawner Cake Prince",
-        Description = "", 
-        Default = true })
-    ToggleSpawnCake:OnChanged(function(Value)
-      _G.SpawnCakePrince = Value
-    end)
-    Options.ToggleSpawnCake:SetValue(true)
-end
-
-spawn(function()
-  while wait() do
-    if _G.SpawnCakePrince then
-      local args = {
-        [1] = "CakePrinceSpawner",
-        [2] = true
-      }
-      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))                    
-      local args = {
-        [1] = "CakePrinceSpawner"
-      }
-      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-    end
-  end
-end)
-end
-
