@@ -2821,7 +2821,7 @@ spawn(function()
 end)
 end
 
-local listfastattack = {'Normal','Slow','Super','Low','speed','Extra'}
+local listfastattack = {'Slow','Normal','Mediaum','Low','Fast Speed','Extra','Super'}
 
     local DropdownDelayAttack = Tabs.Main:AddDropdown("DropdownDelayAttack", {
         Title = "Select Fast Attack",
