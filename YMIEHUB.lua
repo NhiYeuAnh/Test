@@ -2833,19 +2833,19 @@ local listfastattack = {'Normal','Slow','Super','Low','speed','Extra'}
     DropdownDelayAttack:SetValue("Fast Attack")
     DropdownDelayAttack:OnChanged(function(Value)
     _G.FastAttackWinterhub_Mode = Value
-	if _G.FastAttack_Mode == "Slow" then
+	if _G.FastAttackYMIE_Mode == "Slow" then
 		_G.Fast_Delay = 0.10
-	elseif _G.FastAttack_Mode == "Normal" then
+	elseif _G.FastAttackYMIE_Mode == "Normal" then
 		_G.Fast_Delay = 0.07
-	elseif _G.FastAttack_Mode == "Mediaum" then
+	elseif _G.FastAttackYMIE_Mode == "Mediaum" then
 		_G.Fast_Delay = 0.01
-	elseif _G.FastAttack_Mode == "Low" then
+	elseif _G.FastAttackYMIE_Mode == "Low" then
 		_G.Fast_Delay = 0.018	
-	elseif _G.FastAttack_Mode == "Fast Speed" then
+	elseif _G.FastAttackYMIE_Mode == "Fast Speed" then
 		_G.Fast_Delay = 0.009	
-	elseif _G.FastAttack_Mode == "Extra" then
+	elseif _G.FastAttackYMIE_Mode == "Extra" then
 		_G.Fast_Delay = 0.001
-   elseif _G.FastAttack_Mode == "Super"
+   elseif _G.FastAttackYMIE_Mode == "Super"
         _G.Fast_Delay = 0
 	end
 end)
